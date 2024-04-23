@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+<div class="my-8">
+    <div class="container mx-auto">
+        <div class="flex items-center justify-center">
+            <div class="border-solid border-2 border-black w-[50%] h-12 bg-black rounded-xl">
+                <div class="flex items-center justify-center">
+                    <div class="">
+                        <p class="text-white font-mono font-extrabold text-5xl">Contact Us</p>
+                        <div class="border-solid border-b-2 border-black bg-black w-[100%] rounded-xl"></div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mx-auto my-8">
+    <div class="flex items-center justify-center">
+        <p>If you need any help regarding IMAGINE-X AI image generator service please get in touch with us
+            our team will surely help you.</p>
+    </div>
+</div>
+
+
+<div class="container mx-auto px-4 my-4">
+    <form class="max-w-lg mx-auto">
+      <!-- Full Name and Email ID -->
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <label for="full_name" class="block text-gray-700 font-bold mb-2">Full Name</label>
+          <input type="text" id="full_name" name="full_name" placeholder="Your Full Name" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-black">
+        </div>
+        <div>
+          <label for="email" class="block text-gray-700 font-bold mb-2">Email ID</label>
+          <input type="email" id="email" name="email" placeholder="Your Email ID" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-black">
+        </div>
+      </div>
+  
+      <!-- Subject -->
+      <div class="mb-4">
+        <label for="subject" class="block text-gray-700 font-bold mb-2">Subject</label>
+        <input type="text" id="subject" name="subject" placeholder="Subject" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-black">
+      </div>
+  
+      <!-- Message -->
+      <div class="mb-4">
+        <label for="message" class="block text-gray-700 font-bold mb-2">Message</label>
+        <textarea id="message" name="message" placeholder="Your Message" rows="4" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-black"></textarea>
+      </div>
+  
+      <!-- Send Button -->
+      <div class="text-center">
+        <button type="submit" class="bg-black text-white py-2 px-4 rounded-md hover:bg-slate-900 focus:outline-none focus:bg-black">Send Us</button>
+      </div>
+    </form>
+  </div>
+  
+
+{% endblock %}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/CSS/dist/style.css" />
+    <title>Imagine-X : {% block title %}{% endblock %}</title>
+  </head>
+  <body>
+          <!--Nav Bar-->
+      <nav class="py-4 border-solid border-b-2 border-black">
+        <div class="container mx-auto px-4">
+          <div class="flex items-center justify-between">
+            <div class="font-mono font-extrabold text-5xl"><a href="/">IMAGINE-X</a></div>
+            <ul class="flex space-x-9 text-xl font-sans font-medium">
+              <li class=" hover:text-gray-300 hover:underline-offset-2 cursor-pointer"><a href="/aboutus">About Us</a></li>
+              <li class=" hover:text-gray-300 hover:underline-offset-2 cursor-pointer"><a href="/contactus">Contact Us</a></li>
+              <li class=" hover:text-gray-300 hover:underline-offset-2 cursor-pointer"><a href="/signup">Signup</a></li>
+              <li class=" hover:text-gray-300 hover:underline-offset-2 cursor-pointer"><a href="/login">Login</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!--Nav Bar-->
+
+      {% block content %}{% endblock %}
+
+    <!--This is the template-->
+
+    <!--Footer-->
+      <footer class="bg-black py-20 text-white">
+        <div class="container mx-auto px-40">
+          <div class="flex items-center justify-between">
+              <div>
+                <ul>
+                  <li class="font-mono font-extrabold text-5xl"><p>IMAGINE-X AI</p></li>
+                  <li class="font-mono font-extrabold text-2xl">imaginex.swam@gmail.com</li>
+                  <li></li>
+                </ul>
+              </div>
+              <div>
+                <ul>
+                  <li class="font-mono font-extrabold text-3xl hover:text-gray-500"><a href="/aboutus">About Us  &#128279</a></li>
+                  <li class="font-mono font-extrabold text-3xl hover:text-gray-500"><a href="/contactus">Contact Us &#128279</a></li>
+                  <li></li>
+                </ul>
+              </div>
+          </div>
+          <div class="border-b-2 border-solid border-gray-500 mt-10"></div>
+          <div class="flex justify-center text-gray-500">
+            <p>&#169 Copyright 2024 IMAGINE-X AI Team | All Rights Reserved</p>
+          </div>
+        </div>
+      </footer>
+    <!--Footer-->
+  </body>
+</html>

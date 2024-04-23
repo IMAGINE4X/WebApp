@@ -1,25 +1,39 @@
-from PIL import Image
-from diffusers import StableDiffusionPipeline
-import torch
+from flask import Flask,render_template
 
-auth_token = "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"
-modelid = "CompVis/stable-diffusion-v1-4"
-device = "cuda" if torch.cuda.is_available() else "cpu"
 
-pipe = StableDiffusionPipeline.from_pretrained(
-    modelid,
-    revision="fp16",
-    use_auth_token=auth_token
-)
+app = Flask(__name__)
 
-pipe.to(device)
 
-def generate_image(prompt_text):
-    output = pipe(prompt_text, guidance_scale=8.5)
-    generated_image = output['images'][0]
-    return generated_image
+@app.route('/')
+def home():
+    return render_template('home.html')
 
-user_prompt = input("Enter your prompt text: ")
 
-generated_image = generate_image(user_prompt)
-generated_image.show()  # Display the generated image using PIL
+@app.route('/aboutus')
+def aboutus():
+    return render_template('aboutus.html')
+
+
+@app.route('/contactus')
+def contactus():
+    return render_template('contactus.html')
+
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
+
+
+@app.route('/result')
+def result():
+    return render_template('result.html')
+
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

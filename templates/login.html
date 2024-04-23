@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block title %}Log-In{% endblock %}
+
+{% block content %}
+
+
+
+<div class="min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-2xl shadow-slate-900 w-96">
+      <h2 class="text-2xl font-bold mb-4 text-black flex justify-center items-center">Sign in to IMAGINE-X AI</h2>
+  
+      <!-- Email Address Field -->
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-black">Email Address</label>
+        <input type="email" id="email" name="email" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-black">
+      </div>
+  
+      <!-- Password Field -->
+      <div class="mb-6">
+        <label for="password" class="block text-sm font-medium text-black">Password</label>
+        <input type="password" id="password" name="password" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-black">
+      </div>
+  
+      <!-- Sign In Button -->
+      <div class="mb-6">
+        <button type="submit" class="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-slate-900 focus:outline-none focus:bg-black">Sign in</button>
+      </div>
+  
+      <!-- Forgot Password Link -->
+      <div class="mb-4 text-center">
+        <a href="#" class="text-sm text-black hover:underline">Forgot Password?</a>
+      </div>
+  
+      <!-- Register Link -->
+      <div class="mb-6 text-center">
+        <p class="text-sm text-black">Don’t have an account? <a href="#" class="font-medium text-black hover:underline">Register for free</a></p>
+      </div>
+  
+      <!-- Or Sign In with Google -->
+      <div class="text-center">
+        <button class="bg-white text-black py-2 px-4 rounded-md border border-gray-300 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
+          Or Sign in with Google
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  
+
+{% endblock %}

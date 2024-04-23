@@ -1,0 +1,6 @@
+python -m venv project1
+project1\Scripts\activate
+
+
+
+npx tailwindcss -i ./src/input.css -o ./dist/style.css --watch

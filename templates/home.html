@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<style>
+  .reel-container {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+  }
+
+  .reel {
+    display: flex;
+    animation: slideRightToLeft 60s linear infinite;
+  }
+
+  .reel img {
+    
+    object-fit: cover;
+  }
+
+  @keyframes slideRightToLeft {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+</style>
+
+    <!--Name And description-->
+  <div class="m-10">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-center">
+        <ul>
+            <div class="flex items-center justify-center">
+              <li class="font-mono font-medium text-3xl text-slate-800"><p>Empower Your Cretivity With</p></li>
+            </div>
+            
+            <div class="flex items-center justify-center"><li class="font-mono font-extrabold text-8xl"><p>IMAGINE-X</p></li></div>
+            <div class="flex items-center justify-center"><li class="font-mono font-medium text-2xl text-gray-700"><p>POWERED BY ------ AI</p></li></div>
+            <div class="flex items-center justify-center"><li class="font-mono font-medium text-xl text-slate-500"><p>Bring your ideas to life with Imagine-X.</p></li></div>
+            <div class="flex items-center justify-center"><li class="font-mono font-medium text-xl text-slate-500"><p>Think of a textual prompt
+              and convert it into visual images for your dream project.</p></li></div>
+        </ul>
+      </div>
+    </div>
+  </div>
+<!--Name And description-->
+
+<!--Search Bar And Button-->
+<div class="mb-8">
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-center">
+      <div class="border-solid border-[3px] border-transparent hover:border-black h-14 w-[60%] rounded-3xl shadow-2xl shadow-gray-700">
+        <div class="container mx-auto h-full">
+          <div class="flex items-center justify-center h-full">
+            <!-- Adjusted styling to make the input fill the entire space -->
+            <input class="w-full h-full border-none focus:outline-none mx-6" type="text" name="inp" id="inp" placeholder="Describe what you want to generate">
+            <button type="button" class="flex items-center justify-center rounded-md bg-black h-10 w-40 text-white hover:bg-gray-700 ml-2 mr-2">
+              <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Search Bar And Button-->
+
+<!--Some Example Images-->
+<div class="my-10">
+  <div class="reel-container">
+    <div class="reel">
+      <img src="../static/IMAGES/aiimg1.png" alt="Image 1" class="w-1/4 h-1/4 mx-2">
+      <img src="../static/IMAGES/aiimg2.png" alt="Image 2" class="w-1/4 h-1/4 mx-2">
+      <img src="../static/IMAGES/aiimg3.png" alt="Image 3" class="w-1/4 h-1/4 mx-2">
+      <img src="../static/IMAGES/aiimg4.png" alt="Image 4" class="w-1/4 h-1/4 mx-2">
+      <img src="../static/IMAGES/aiimg5.png" alt="Image 5" class="w-1/4 h-1/4 mx-2">
+      <img src="../static/IMAGES/aiimg6.png" alt="Image 6" class="w-1/4 h-1/4 mx-2">
+      <img src="../static/IMAGES/aiimg7.png" alt="Image 7" class="w-1/4 h-1/4 mx-2">
+      <!-- Add more images here -->
+    </div>
+  </div>
+</div>
+
+<!--Some Example Images-->
+
+<!--How to generate Images (OPTIONAL)-->
+
+<!--How to generate Images (OPTIONAL)-->
+
+<!--An example of how images are generated from prompt text-->
+<div class="py-4 border-solid border-2 border-black bg-black my-2">
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-center">
+        <p class="text-white font-mono font-extrabold text-3xl mt-5">Turn Your Ideas Into Visual Artwork With IMAGINE-X AI</p>
+    </div>
+    <div class="flex items-center justify-center mt-2">
+      <div class="border-solid border-b-2 bg-white border-white w-[70%] h-1 rounded-xl">
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between">
+      <img src="../static/IMAGES/textbox.png" alt="Some Image" class="w-1/2 mr-2">
+        
+      <div class="flex-col items-center">
+        <div class="container mx-auto text-center"> <!-- Added text-center class -->
+          <p class="text-white font-mono font-extrabold text-2xl mb-4">Text to Image Generator</p>
+        </div> <!-- Removed class="container mx-auto" -->
+        <p class="text-white text-center font-mono font-extrabold text-l"> <!-- Added text-center class -->
+          A text-to-image generator converts written descriptions into visual images using AI. It's a powerful tool for artists, designers, and content creators to quickly bring ideas to life.
+        </p>
+      </div>
+    </div>
+  </div>    
+</div>
+
+<!--An example of how images are generated from prompt text-->
+{% endblock %}
+
+
+
