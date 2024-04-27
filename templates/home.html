@@ -53,6 +53,7 @@
 <!--Name And description-->
 
 <!--Search Bar And Button-->
+<form id="search-form">
 <div class="mb-8">
   <div class="container mx-auto px-4">
     <div class="flex items-center justify-center">
@@ -61,7 +62,7 @@
           <div class="flex items-center justify-center h-full">
             <!-- Adjusted styling to make the input fill the entire space -->
             <input class="w-full h-full border-none focus:outline-none mx-6" type="text" name="inp" id="inp" placeholder="Describe what you want to generate">
-            <button type="button" class="flex items-center justify-center rounded-md bg-black h-10 w-40 text-white hover:bg-gray-700 ml-2 mr-2">
+            <button type="button" id="search-btn" class="flex items-center justify-center rounded-md bg-black h-10 w-40 text-white hover:bg-gray-700 ml-2 mr-2">
               <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
               </svg>
@@ -72,7 +73,7 @@
     </div>
   </div>
 </div>
-
+</form>
 <!--Search Bar And Button-->
 
 <!--Some Example Images-->
@@ -124,6 +125,52 @@
 </div>
 
 <!--An example of how images are generated from prompt text-->
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log("JavaScript loaded");
+
+    var searchBtn = document.getElementById('search-btn');
+    searchBtn.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default button behavior
+        
+        // Check if user is logged in
+        var loggedIn = "{{ logged_in }}";
+        if (!loggedIn || loggedIn === "False") {
+            // Redirect to login page
+            window.location.href = '/login';
+            return;
+        }
+
+        // Get the search query
+        var searchQuery = document.getElementById('inp').value;
+
+        // Redirect to the result page with the search query as a parameter
+        window.location.href = '/result?search_query=' + encodeURIComponent(searchQuery);
+    });
+
+    // Event listener for form submission (optional)
+    var searchForm = document.getElementById('search-form');
+    searchForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+
+        // Check if user is logged in
+        var loggedIn = "{{ logged_in }}";
+        if (!loggedIn || loggedIn === "False") {
+            // Redirect to login page
+            window.location.href = '/login';
+            return;
+        }
+
+        // Get the search query
+        var searchQuery = document.getElementById('inp').value;
+
+        // Redirect to the result page with the search query as a parameter
+        window.location.href = '/result?search_query=' + encodeURIComponent(searchQuery);
+    });
+});
+</script>
+
 {% endblock %}
 
 

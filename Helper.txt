@@ -1,6 +1,15 @@
-python -m venv project1
-project1\Scripts\activate
+python -m venv pythvenv
+pythvenv\Scripts\activate
 
 
 
 npx tailwindcss -i ./src/input.css -o ./dist/style.css --watch
+
+pip install pymongo
+
+pip install Flask-Dance
+
+
+
+
+
