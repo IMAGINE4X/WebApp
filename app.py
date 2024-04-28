@@ -9,15 +9,28 @@ from flask_mail import Mail, Message, email_dispatched
 app = Flask(__name__)
 
 
-mail = Mail(app)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'  # Secret key for session management
 
 # MongoDB configuration
 client = MongoClient('mongodb://localhost:27017/')
 db = client['mydatabase']
 users_collection = db['users']
+users_queries = db['contactus']
+
+
+def get_first_name():
+    """
+    Fetch the first name of the logged-in user from the database.
+    """
+    if session.get('logged_in'):
+        user_email = session['email']
+        user = users_collection.find_one({'email': user_email})
+        if user:
+            return user.get('first_name', '')
+    return ''
+
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -30,7 +43,14 @@ def home():
             search_query = request.form.get('inp')
             return redirect(url_for('result', search_query=search_query))
     else:
-        return render_template('home.html', logged_in=session.get('logged_in', False))
+        # Fetch the first name using the method
+        first_name = get_first_name()
+
+        # Render the home template with the logged_in status and first name
+        return render_template('home.html', logged_in=session.get('logged_in', False), first_name=first_name)
+
+
+
 
 
 @app.route('/thanks')
@@ -40,14 +60,11 @@ def thanks():
 
 @app.route('/aboutus')
 def aboutus():
-    return render_template('aboutus.html')
+    # Fetch the first name using the method
+    first_name = get_first_name()
+    return render_template('aboutus.html',first_name=first_name)
 
-# Define a function to handle email dispatching errors
-def email_error_handler(message, app):
-    print(f"Failed to send email: {message}")
 
-# Register the email error handler
-email_dispatched.connect(email_error_handler)
 @app.route('/contactus', methods=['GET', 'POST'])
 def contactus():
     if request.method == 'POST':
@@ -57,20 +74,15 @@ def contactus():
         subject = request.form['subject']
         message = request.form['message']
         
-        # Send email
-        msg = Message(subject, sender=email, recipients=['imaginex.swam@gmail.com'])
-        msg.body = f"From: {full_name}\nEmail: {email}\n\n{message}"
-        
-        try:
-            mail.send(msg)
-            # Redirect to a thank you page or home page after sending email
-            return redirect(url_for('thanks'))  # Redirect to a thank you page
-        except Exception as e:
-            # Handle email sending error
-            print(f"Failed to send email: {e}")
-            return render_template('contactus.html', error="Failed to send email. Please try again later.")
+        # Use correct field names when inserting into MongoDB
+        query = {'full_name': full_name, 'email': email, 'subject': subject, 'message': message}
+        users_queries.insert_one(query)
+        return redirect(url_for('thanks'))
     else:
-        return render_template('contactus.html')
+        # Fetch the first name using the method
+        first_name = get_first_name()
+        return render_template('contactus.html', first_name=first_name)
+
 
 
 
@@ -93,7 +105,7 @@ def login():
         
         # Set session variable to indicate user is logged in
         session['logged_in'] = True
-        
+        session['email'] = email
         # Redirect to home page after successful login
         return redirect(url_for('home'))
     else:
@@ -124,7 +136,9 @@ def signup():
         # Store user in the database
         user = {'first_name': first_name, 'last_name': last_name, 'email': email, 'password': hashed_password}
         users_collection.insert_one(user)
-        
+        # Set session variables to indicate user is logged in
+        session['logged_in'] = True
+        session['email'] = email
         # Redirect to home page after successful sign up
         return redirect(url_for('home'))
     else:
@@ -139,7 +153,24 @@ def logout():
 
 @app.route('/result')
 def result():
-    return render_template('result.html')
+    # Fetch the first name using the method
+    first_name = get_first_name()
+    return render_template('result.html',first_name=first_name)
+
+
+@app.route('/adminlogin', methods=['GET', 'POST'])
+def adminlogin():
+    if request.method == 'POST':
+        password = request.form['password']
+        if password == "ImagineXTeam@1234":
+            # Fetch all contact queries from the database
+            contact_queries = users_queries.find()
+            # Render the admin login template with the contact queries
+            return render_template('adminlogin.html', contact_queries=contact_queries)
+        else:
+            return "Invalid password"
+    else:
+        return render_template('adminlogin.html')
 
 
 if __name__ == '__main__':

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagine-X : Admin--Log-In</title>
+    <link rel="stylesheet" href="../static/CSS/dist/style.css">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto">
+        {% if contact_queries %}
+        <div class="my-8">
+            <h2 class="text-xl font-semibold mb-4">Contact Us Queries</h2>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subject</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Message</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for query in contact_queries %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ query.full_name }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ query.email }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ query.subject }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ query.message }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="flex items-center justify-center h-screen">
+            <div class="border border-gray-300 shadow-lg rounded-lg p-8 bg-white">
+                <h1 class="text-xl font-semibold mb-6">IMAGINE-X Admin Login</h1>
+                <form action="/adminlogin" method="POST" class="space-y-4">
+                    <div class="flex items-center space-x-4">
+                        <label for="password" class="w-20">Password</label>
+                        <input type="password" name="password" id="password" class="border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-black flex-1">
+                    </div>
+                    <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md">Log-in</button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

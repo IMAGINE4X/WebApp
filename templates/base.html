@@ -1,61 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../static/CSS/dist/style.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Imagine-X : {% block title %}{% endblock %}</title>
-  </head>
-  <body>
-          <!--Nav Bar-->
-      <nav class="py-4 border-solid border-b-2 border-black">
+    <!-- Link to Tailwind CSS CDN -->
+    <link rel="stylesheet" href="../static/CSS/dist/style.css">
+</head>
+<body>
+    <!--Nav Bar-->
+    <nav id="navbar" class="py-4 border-solid border-b-2 border-black sticky w-full top-0 bg-white z-50">
         <div class="container mx-auto px-4">
-          <div class="flex items-center justify-between">
-            <div class="font-mono font-extrabold text-5xl"><a href="/">IMAGINE-X</a></div>
-            <ul class="flex space-x-9 text-xl font-sans font-medium">
-              <li class=" hover:text-gray-300 hover:underline-offset-2 cursor-pointer"><a href="/aboutus">About Us</a></li>
-              <li class=" hover:text-gray-300 hover:underline-offset-2 cursor-pointer"><a href="/contactus">Contact Us</a></li>
-              {% if session.logged_in %}
-                <li class=" hover:text-gray-300 hover:underline-offset-2 cursor-pointer"><a href="/logout">Logout</a></li>
-              {% else %}
-                <li class=" hover:text-gray-300 hover:underline-offset-2 cursor-pointer"><a href="/signup">Signup</a></li>
-                <li class=" hover:text-gray-300 hover:underline-offset-2 cursor-pointer"><a href="/login">Login</a></li>
-              {% endif %}
-            </ul>
-          </div>
+            <div class="flex items-center justify-between">
+                <div class="font-mono font-extrabold text-5xl"><a href="/">IMAGINE-X</a></div>
+                <ul class="flex space-x-9 text-xl font-sans font-medium">
+                    <li class="hover:text-gray-300 hover:underline-offset-2 cursor-pointer"><a href="/aboutus">About Us</a></li>
+                    <li class="hover:text-gray-300 hover:underline-offset-2 cursor-pointer"><a href="/contactus">Contact Us</a></li>
+                    {% if session.logged_in %}
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open" class="bg-black  text-white font-semibold py-2 px-4 rounded-full inline-flex items-center focus:outline-none hover:bg-slate-700">
+                          <span>{{ first_name[0] if first_name else '' }}</span>
+                        </button>
+                        <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg" style="display: none;">
+                            <a href="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-black hover:text-white">Log-out</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-black hover:text-white">Item 2</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-black  hover:text-white">Item 3</a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <li class="hover:text-gray-300 hover:underline-offset-2 cursor-pointer"><a href="/signup">Signup</a></li>
+                    <li class="hover:text-gray-300 hover:underline-offset-2 cursor-pointer"><a href="/login">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-      </nav>
-      <!--Nav Bar-->
+    </nav>
+    <!--Nav Bar-->
 
-      {% block content %}{% endblock %}
+    {% block content %}{% endblock %}
 
     <!--This is the template-->
 
     <!--Footer-->
-      <footer class="bg-black py-20 text-white">
+    <footer class="bg-black py-20 text-white">
         <div class="container mx-auto px-40">
-          <div class="flex items-center justify-between">
-              <div>
-                <ul>
-                  <li class="font-mono font-extrabold text-5xl"><p>IMAGINE-X AI</p></li>
-                  <li class="font-mono font-extrabold text-2xl">imaginex.swam@gmail.com</li>
-                  <li></li>
-                </ul>
-              </div>
-              <div>
-                <ul>
-                  <li class="font-mono font-extrabold text-3xl hover:text-gray-500"><a href="/aboutus">About Us  &#128279</a></li>
-                  <li class="font-mono font-extrabold text-3xl hover:text-gray-500"><a href="/contactus">Contact Us &#128279</a></li>
-                  <li></li>
-                </ul>
-              </div>
-          </div>
-          <div class="border-b-2 border-solid border-gray-500 mt-10"></div>
-          <div class="flex justify-center text-gray-500">
-            <p>&#169 Copyright 2024 IMAGINE-X AI Team | All Rights Reserved</p>
-          </div>
+            <div class="flex items-center justify-between">
+                <div>
+                    <ul>
+                        <li class="font-mono font-extrabold text-5xl"><p>IMAGINE-X AI</p></li>
+                        <li class="font-mono font-extrabold text-2xl">imaginex.swam@gmail.com</li>
+                        <li></li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li class="font-mono font-extrabold text-3xl hover:text-gray-500"><a href="/aboutus">About Us  &#128279</a></li>
+                        <li class="font-mono font-extrabold text-3xl hover:text-gray-500"><a href="/contactus">Contact Us &#128279</a></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-b-2 border-solid border-gray-500 mt-10"></div>
+            <div class="flex justify-center text-gray-500">
+                <p>&#169 Copyright 2024 IMAGINE-X AI Team | All Rights Reserved</p>
+            </div>
         </div>
-      </footer>
+    </footer>
     <!--Footer-->
-  </body>
+
+    <script>
+        // Inline JavaScript to toggle the visibility of the dropdown menu
+        document.addEventListener('click', function(event) {
+            var dropdown = document.querySelector('.relative');
+            var button = dropdown.querySelector('button');
+            var menu = dropdown.querySelector('div');
+
+            if (button.contains(event.target)) {
+                menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+            } else if (!menu.contains(event.target)) {
+                menu.style.display = 'none';
+            }
+        });
+    </script>
+</body>
 </html>
