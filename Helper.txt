@@ -1,6 +1,8 @@
 python -m venv pythvenv
+
 pythvenv\Scripts\activate
 
+cd WebApp
 
 
 npx tailwindcss -i ./src/input.css -o ./dist/style.css --watch
@@ -9,7 +11,13 @@ pip install pymongo
 
 pip install Flask-Dance
 
+ <!-- Or Sign In with Okta -->
+      <div class="text-center">
+        <a href="/okta-login" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Sign in with Okta</a>
+      </div>
 
 
-
-
+# MongoDB configuration
+client = MongoClient('mongodb://localhost:27017/')
+db = client['mydatabase']
+users_collection = db['users']

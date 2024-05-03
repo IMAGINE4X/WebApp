@@ -4,6 +4,9 @@ from bson.json_util import dumps
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message, email_dispatched
+from flask_pymongo import PyMongo
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
+from authlib.integrations.flask_client import OAuth
 
 
 app = Flask(__name__)
@@ -14,10 +17,33 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
 # MongoDB configuration
-client = MongoClient('mongodb://localhost:27017/')
-db = client['mydatabase']
-users_collection = db['users']
-users_queries = db['contactus']
+app.config["MONGO_URI"] = "mongodb://localhost:27017/mydatabase"
+mongo = PyMongo(app)
+
+users_collection = mongo.db.users
+users_queries = mongo.db.contactus
+
+
+# Okta OAuth configuration
+OKTA_CLIENT_ID = 'a3BolZLieoX9d3Ocvwv3M0YPXKep0bg4'
+OKTA_CLIENT_SECRET = '7u2D2RNVC46fJ96GJogz6pyd_OYO79J6Wn7zsMOJT8IWidLOAnjUK8eTJg02pFr7'
+OKTA_DOMAIN = 'dev-5fvfbhr5pvs5n6tm.us.auth0.com'
+OKTA_REDIRECT_URI = 'http://localhost:5000/okta-callback'
+
+oauth = OAuth(app)
+okta = oauth.register(
+    'okta',
+    client_id=OKTA_CLIENT_ID,
+    client_secret=OKTA_CLIENT_SECRET,
+    authorize_url=f'https://{OKTA_DOMAIN}/oauth2/v1/authorize',
+    authorize_params=None,
+    access_token_url=f'https://{OKTA_DOMAIN}/oauth2/v1/token',
+    access_token_params=None,
+    refresh_token_url=None,
+    redirect_uri=OKTA_REDIRECT_URI,
+    client_kwargs={'scope': 'openid profile email'}
+)
+
 
 
 def get_first_name():
@@ -110,6 +136,21 @@ def login():
         return redirect(url_for('home'))
     else:
         return render_template('login.html')
+
+
+@app.route('/google-login')
+def google_login():
+    return okta.authorize_redirect(redirect_uri=OKTA_REDIRECT_URI)
+
+@app.route('/okta-callback')
+def okta_callback():
+    token = okta.authorize_access_token()
+    userinfo = okta.parse_id_token(token)
+    session['logged_in'] = True
+    session['email'] = userinfo['email']
+    return redirect(url_for('home'))
+
+
 
 
 @app.route('/signup', methods=['GET','POST'])
