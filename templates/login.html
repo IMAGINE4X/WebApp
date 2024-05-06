@@ -29,22 +29,30 @@
   
       <!-- Forgot Password Link -->
       <div class="mb-4 text-center">
-        <a href="#" class="text-sm text-black hover:underline">Forgot Password?</a>
+        <a href="/reset_password" class="text-sm text-black hover:underline font-bold">Forgot Password?</a>
       </div>
   
       <!-- Register Link -->
       <div class="mb-6 text-center">
         <p class="text-sm text-black">Don’t have an account? <a href="/signup" class="font-medium text-black hover:underline">Register yourself</a></p>
       </div>
-  
+      <div class="mb-4 text-center flex justify-center items-center">
+        <div class="inline-block border-b border-black flex-grow mx-4"></div>
+        <span class="font-bold text-black">OR</span>
+        <div class="inline-block border-b border-black flex-grow mx-4"></div>
+    </div>
       <!-- Or Sign In with Google -->
       <div class="text-center">
-        <a href="/google-login" class="bg-white text-black py-2 px-4 rounded-md border border-gray-300 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
-          Or Sign in with Google
+        <a href="{{url_for('googleLogin')}}" class="bg-slate-700 text-white py-2 px-4 rounded-md border border-gray-300 hover:bg-gray-100 hover:text-black focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
+          Sign in with Google
         </a>
       </div>
     </div>
   </div>
+
+
+
+
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -78,7 +86,8 @@
           // Optionally, display an error message to the user
         });
       });
-    });
+
+    })
   </script>
   
 
